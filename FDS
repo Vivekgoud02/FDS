@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+Sal = pd.read_csv('data7-1.csv', header=None)
+
+Sal[0].head()
+
+Salary_mean = Sal[0].mean()
+Salary_mean
+
+X = Sal[(Sal[0] >= 0.75 * Salary_mean) &
+        (Sal[0] <= Salary_mean)].shape[0] / Sal.shape[0]
+X
+
+sns.histplot(Sal[0], kde=True, stat='density', bins=30,
+             color='green', label='Probability density function')
+
+plt.axvline(Salary_mean, color='blue', linestyle='dashed',
+            linewidth=2, label=f'Mean Salary: {Salary_mean:.2f}')
+plt.axvline(X, color='Red', linestyle='dashed',
+            linewidth=2, label=f'X: {X:.2f}')
+plt.title('Probability Density Function of Salaries')
+plt.xlabel('Salary')
+plt.ylabel('Density')
+plt.legend()
+plt.show()
